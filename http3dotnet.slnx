@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="benchmark\benchmark.csproj" Type="Classic C#" />
   <Project Path="http3api\http3api.csproj" Type="Classic C#" />
   <Project Path="http3webapp\http3webapp.csproj" Type="Classic C#" />
 </Solution>
