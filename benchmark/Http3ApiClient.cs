@@ -14,8 +14,9 @@ public class Http3ApiClient
         var handler = new SocketsHttpHandler
         {
             // ⚡ Se solicita HTTP/3 si el servidor lo soporta
-            SslOptions = { ApplicationProtocols = [SslApplicationProtocol.Http3] },
-            EnableMultipleHttp3Connections = true
+            SslOptions = { ApplicationProtocols = [SslApplicationProtocol.Http11, SslApplicationProtocol.Http2, SslApplicationProtocol.Http3] },
+            EnableMultipleHttp3Connections = true,
+            EnableMultipleHttp2Connections = true
         };
         _client = new HttpClient(handler)
         {

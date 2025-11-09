@@ -4,7 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.WebHost.ConfigureKestrel((context, options) =>
 {
-    options.ListenAnyIP(443, listenOptions =>
+    options.ListenAnyIP(7227, listenOptions =>
     {
         listenOptions.Protocols = HttpProtocols.Http1AndHttp2AndHttp3;
         listenOptions.UseHttps();
@@ -24,11 +24,14 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.Use((context, next) =>
+if (app.Environment.IsProduction())
 {
-    context.Response.Headers.AltSvc = "h3=\":443\"";
-    return next(context);
-});
+    app.Use((context, next) =>
+    {
+        context.Response.Headers.AltSvc = "h3=\":443\"";
+        return next(context);
+    });
+}
 
 app.UseHttpsRedirection();
 
